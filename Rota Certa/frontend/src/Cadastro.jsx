@@ -13,6 +13,7 @@ function Cadastro() {
   const [placa_carro, setPlaca] = useState("");
   const [numero_cnh, setCNH] = useState("");
   const [documento, setDoc] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleRegister = async () => {
     try {
@@ -30,7 +31,7 @@ function Cadastro() {
         formData.append("documento", documento);
       }
 
-      const res = await fetch("http://127.0.0.1:8000/auth/registrar", {
+      const res = await fetch(`${API_URL}/auth/registrar`, {
         method: "POST",
         body: formData,
       });

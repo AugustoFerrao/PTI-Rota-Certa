@@ -11,6 +11,7 @@ export default function CalendarioMotorista({ setMostrarLista }) {
     const [dataSelecionada, setDataSelecionada] = useState(null);
     const [viagensNaData, setViagensNaData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
     const primeiroDiaDoMes = new Date(ano, mes, 1);
@@ -31,11 +32,10 @@ export default function CalendarioMotorista({ setMostrarLista }) {
         return `${String(dia).padStart(2, "0")}/${String(mes + 1).padStart(2, "0")}/${ano}`;
     };
 
-    // Busca viagens de um dia específico
     const buscarViagens = async (dataBr) => {
         try {
             setLoading(true);
-            const resp = await fetch(`http://127.0.0.1:8000/viagens/?data=${encodeURIComponent(dataBr)}`);
+            const resp = await fetch(`${API_URL}/viagens/?data=${encodeURIComponent(dataBr)}`);
             if (!resp.ok) throw new Error("Erro ao buscar viagens");
             const dados = await resp.json();
             setViagensNaData(dados);

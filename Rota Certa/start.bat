@@ -1,8 +1,18 @@
-___
 @echo off
 echo =============================================
 echo 🚀 Iniciando projeto "Rota Certa"
 echo =============================================
+
+:: === DETECTAR IPV4 (adaptador de rede ativo) ===
+set IP=
+for /f "tokens=2 delims=:" %%A in ('ipconfig ^| findstr /R /C:"IPv4.*"') do (
+    set IP=%%A
+    goto :IP_OK
+)
+:IP_OK
+:: Remove espaços
+set IP=%IP: =%
+echo 🌐 IP detectado: %IP%
 
 :: === BACKEND ===
 echo 🔧 Configurando Backend (FastAPI)...
@@ -23,7 +33,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 echo ▶️ Iniciando Backend em nova janela...
-start cmd /k "call venv\Scripts\activate && uvicorn app.main:app --reload"
+start cmd /k "call venv\Scripts\activate && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
 
 cd ..
 
@@ -31,6 +41,13 @@ cd ..
 echo 🔧 Configurando Frontend (React)...
 
 cd frontend
+
+:: Cria/atualiza arquivo .env com IP detectado
+if exist .env del .env
+(
+echo VITE_API_URL=http://%IP%:8000
+) > .env
+echo 📄 Arquivo .env atualizado com IP: %IP%
 
 :: Verifica se Node está instalado
 where node >nul 2>nul
@@ -40,20 +57,20 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b
 )
 
-:: Instala dependências do React
+:: Instala dependências do React se necessário
 IF NOT EXIST "node_modules" (
     echo 📦 Instalando dependências do Frontend...
     npm install
 )
 
 echo ▶️ Iniciando Frontend em nova janela...
-start cmd /k "npm run dev"
+start cmd /k "npm run dev -- --host=0.0.0.0"
 
 cd ..
 
 echo =============================================
 echo ✅ Projeto iniciado com sucesso!
-echo Backend: http://localhost:8000/docs
-echo Frontend: http://localhost:5173/
+echo Backend: http://%IP%:8000/docs
+echo Frontend: http://%IP%:5173/
 echo =============================================
 pause

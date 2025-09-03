@@ -10,6 +10,7 @@ function Suporte({ onLogout }) {
   const [chamados, setChamados] = useState([]);
   const textareaRef = useRef(null);
 
+  const API_URL = import.meta.env.VITE_API_URL;
   const usuarioId = localStorage.getItem("usuario_id");
 
   // Ajusta a altura do textarea automaticamente
@@ -27,7 +28,7 @@ function Suporte({ onLogout }) {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch(`http://127.0.0.1:8000/suporte/?usuario_id=${usuarioId}`, {
+      const res = await fetch(`${API_URL}/suporte/?usuario_id=${usuarioId}`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -57,7 +58,7 @@ function Suporte({ onLogout }) {
       const token = localStorage.getItem("token");
       if (!token) return alert("Usuário não autenticado");
 
-      const url = `http://127.0.0.1:8000/suporte/?assunto=${encodeURIComponent(assunto)}&mensagem=${encodeURIComponent(mensagem)}`;
+      const url = `${API_URL}/suporte/?assunto=${encodeURIComponent(assunto)}&mensagem=${encodeURIComponent(mensagem)}`;
 
       const res = await fetch(url, {
         method: "POST",

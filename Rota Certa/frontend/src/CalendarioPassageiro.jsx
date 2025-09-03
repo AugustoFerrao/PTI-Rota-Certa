@@ -12,6 +12,7 @@ export default function CalendarioPassageiro({ }) {
     const [viagensNaData, setViagensNaData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [motoristas, setMotoristas] = useState({});
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
     const primeiroDiaDoMes = new Date(ano, mes, 1);
@@ -28,12 +29,13 @@ export default function CalendarioPassageiro({ }) {
     const buscarViagens = async (dataBr) => {
         try {
             setLoading(true);
-            const resp = await fetch(`http://127.0.0.1:8000/viagens/?data=${encodeURIComponent(dataBr)}`);
+            const resp = await fetch(`${API_URL}/viagens/?data=${encodeURIComponent(dataBr)}`);
             if (!resp.ok) throw new Error("Erro ao buscar viagens");
             const dados = await resp.json();
             setViagensNaData(dados);
 
-            const idsMotoristas = [...new Set(dados.map(v => v.motorista_id))];
+            const idsMotoristas = [...new Set(dados.map(v => v.motorista_id)
+                .filter(id => id !== undefined && id !== null))];
             if (idsMotoristas.length > 0) {
                 await buscarMotoristas(idsMotoristas);
             }
@@ -48,7 +50,7 @@ export default function CalendarioPassageiro({ }) {
     const buscarMotoristas = async (ids) => {
         const nomes = {};
         for (const id of ids) {
-            const resp = await fetch(`http://127.0.0.1:8000/motoristas/${id}/`);
+            const resp = await fetch(`${API_URL}/motoristas/${id}/`);
             if (resp.ok) {
                 const dados = await resp.json();
                 nomes[id] = dados.nome;
@@ -60,7 +62,7 @@ export default function CalendarioPassageiro({ }) {
     const reservaViagem = async (viagemId) => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://127.0.0.1:8000/reservas/?viagem_id=${viagemId}`, {
+            const res = await fetch(`${API_URL}/reservas/?viagem_id=${viagemId}`, {
                 method: "POST",
                 headers: { Authorization: `Bearer ${token}` }
             });

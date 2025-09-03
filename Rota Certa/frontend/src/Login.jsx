@@ -16,6 +16,8 @@ function Login() {
   const navigate = useNavigate();
   const [username, setEmail] = useState("");
   const [password, setSenha] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ function Login() {
       data.append("username", username);
       data.append("password", password);
 
-      const res = await fetch("http://127.0.0.1:8000/auth/login", {
+      const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: data,
