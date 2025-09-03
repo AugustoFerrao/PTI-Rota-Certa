@@ -1,0 +1,203 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #F4F3F3;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 400px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.profile-info {
+  flex: 1;
+  padding-left: 10px;
+}
+
+.profile-pic {
+  width: 800px;
+  height: 800px;
+  background: gray;
+  border-radius: 50%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.buttons button {
+  background: #f1f1f1;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.promo {
+  background: #f9f9f9;
+  padding: 10px;
+}
+
+.security-check {
+  padding: 10px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  margin: 5px 0;
+}
+
+.progress {
+  height: 100%;
+  background: blue;
+  border-radius: 3px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.viagens-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.viagem-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f9f9f9;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  transition: 0.2s;
+  line-height: 2;
+}
+
+.viagem-item:hover {
+  background-color: #f0f0f0;
+}
+
+.status-viagem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.caixa-selecao {
+  max-width: 130px;
+  font-size: 12px;
+  height: 37px;
+}
+
+.summary-trips {
+  overflow: hidden;
+  margin-top: 10px;
+  transition: max-height 0.6s ease, opacity 0.6s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.summary-trips.list-visible {
+  max-height: 450px;
+  opacity: 1;
+}
+
+.summary-trips.list-hidden {
+  max-height: 0;
+  opacity: 0;
+}
+
+.slide-in-top {
+  animation: slide-in-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  will-change: transform, opacity;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-24px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.summary h4 {
+  margin-bottom: 8px;
+}
+
+.input-text {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.input-textarea {
+  width: 100%;
+  padding: 10px;         
+  border-radius: 6px;    
+  border: 1px solid #ccc; 
+  margin-bottom: 12px; 
+  font-size: 14px;       
+  box-sizing: border-box;
+  height: 40px;           
+  resize: none;           
+}
+
+.star {
+  color: gray;
+  transition: color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.star.active {
+  color: gold;
+}
+
+.rating {
+  display: flex;
+  gap: 8px;
+}
