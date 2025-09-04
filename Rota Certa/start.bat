@@ -49,10 +49,12 @@ echo VITE_API_URL=http://%IP%:8000
 ) > .env
 echo 📄 Arquivo .env atualizado com IP: %IP%
 
-:: Verifica se Node está instalado
+:: Verifica se Node.js está instalado
 where node >nul 2>nul
 IF %ERRORLEVEL% NEQ 0 (
-    echo ❌ ERRO: Node.js não está instalado. Instale em: https://nodejs.org/
+    echo ❌ ERRO: Node.js não está instalado.
+    echo 🌐 Abrindo site oficial para download...
+    start https://nodejs.org/en/download/prebuilt-installer
     pause
     exit /b
 )
