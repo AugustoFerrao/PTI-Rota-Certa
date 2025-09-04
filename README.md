@@ -10,6 +10,10 @@ Abra o navegador pelo seu celular, acesse o link que aparecerá pela tela indica
 _**OBS.:** O servidor está sendo acessado localmente, pois o banco de dados deve ser fornecido pela cooperativa, porém, a codificação para o funcionamento de servidores online já está feito._
 ## Tecnologias Utilizadas
 #### Back end: 
-Python
+- Python
+- FastAPI
+- Uvicorn
 #### Front end:
-React, HTML, CSS
+- React
+- Vite
+- CSS
