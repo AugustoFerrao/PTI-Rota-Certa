@@ -5,6 +5,7 @@ import './Agendamento.css';
 function Agendamento() {
   const navigate = useNavigate();
   const location = useLocation();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Converte dd/mm/yyyy -> yyyy-mm-dd
   const brToIso = (brDate) => {
@@ -47,7 +48,7 @@ function Agendamento() {
         vagas_disponiveis: vagas_disponiveis.toString()
       });
 
-      const res = await fetch(`http://127.0.0.1:8000/viagens/?${query.toString()}`, {
+      const res = await fetch(`${API_URL}/viagens/?${query.toString()}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`

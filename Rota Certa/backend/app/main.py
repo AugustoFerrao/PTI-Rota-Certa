@@ -19,7 +19,7 @@ app = FastAPI(
 # Configuração de CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -66,3 +66,4 @@ def custom_openapi():
     return app.openapi_schema
 
 app.openapi = custom_openapi
+

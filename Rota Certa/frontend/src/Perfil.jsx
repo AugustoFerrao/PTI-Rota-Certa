@@ -15,6 +15,9 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
   const [ratings, setRatings] = useState({});
   const [hovered, setHovered] = useState({});
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -32,8 +35,8 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
     const fetchUsuario = async () => {
       try {
         const endpoint = tipo === "motorista"
-          ? `http://127.0.0.1:8000/motoristas`
-          : `http://127.0.0.1:8000/passageiros`;
+          ? `${API_URL}/motoristas`
+          : `${API_URL}/passageiros`;
 
         const res = await fetch(endpoint, {
           headers: { Authorization: `Bearer ${token}` }
@@ -67,7 +70,7 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/viagens`, {
+      const res = await fetch(`${API_URL}/viagens`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) return;
@@ -85,7 +88,7 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/viagens`, {
+      const res = await fetch(`${API_URL}/viagens`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) return;
@@ -102,7 +105,7 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/reservas/minhas`, {
+      const res = await fetch(`${API_URL}/reservas/minhas`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!res.ok) return;
@@ -133,7 +136,7 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/viagens/${id}/status?status=${encodeURIComponent(novoStatus)}`,
+        `${API_URL}/viagens/${id}/status?status=${encodeURIComponent(novoStatus)}`,
         { method: "PUT", headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -154,7 +157,7 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
     if (!token) return alert("Usuário não autenticado");
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/reservas/${id}/cancelar`, {
+      const res = await fetch(`${API_URL}/reservas/${id}/cancelar`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -207,7 +210,7 @@ function Perfil({ onLogout, mostrarLista, setMostrarLista }) {
     if (!token) return;
 
     try {
-      await fetch(`http://127.0.0.1:8000/reservas/${reservaId}/avaliar_motorista?nota=${value}`, {
+      await fetch(`${API_URL}/reservas/${reservaId}/avaliar_motorista?nota=${value}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
